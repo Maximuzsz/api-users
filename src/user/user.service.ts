@@ -24,5 +24,16 @@ export class UserService {
     }
   }
 
+  async findByCpf(cpf: string){
+    try{
+      const data  = await this.prisma.user.findUnique({
+        where: { cpf },
+      });
+      return data;
+    } catch(e){
+      throw new HttpException(e.response.data.error.details, HttpStatus.BAD_REQUEST);
+    }
+  }
+
 
 }
